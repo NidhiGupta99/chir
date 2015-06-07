@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
 var path = require('path');
 var favicon = require('serve-favicon');
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -38,7 +39,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-	 store: require('mongoose-session')(mongoose),
+	 store: new MongoStore({ url: process.env.OPENSHIFT_MONGODB_DB_URL },
   cookie: { maxAge: 1200000 },
   secret: 'keyboard cat',
     proxy: true,
