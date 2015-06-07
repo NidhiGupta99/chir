@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var MongoStore = require('connect-mongo')(session);
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -11,6 +11,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 //SessionStore = require('session-mongoose')(mongoose);
 var passport = require('passport');
 //initialize mongoose schemas
