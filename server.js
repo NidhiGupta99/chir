@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var path = require('path');
 var favicon = require('serve-favicon');
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
