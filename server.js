@@ -39,7 +39,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-	 store: new MongoStore({ url: process.env.OPENSHIFT_MONGODB_DB_URL },
+	 store: new MongoStore({ url: process.env.OPENSHIFT_MONGODB_DB_URL }),
   
   secret: 'keyboard cat',
     proxy: true,
