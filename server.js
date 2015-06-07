@@ -11,7 +11,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo')(express);
 //SessionStore = require('session-mongoose')(mongoose);
 var passport = require('passport');
 //initialize mongoose schemas
