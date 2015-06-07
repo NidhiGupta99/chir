@@ -40,7 +40,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(session({
 	 store: new MongoStore({ url: process.env.OPENSHIFT_MONGODB_DB_URL },
-  cookie: { maxAge: 1200000 },
+  
   secret: 'keyboard cat',
     proxy: true,
    resave: true,
