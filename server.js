@@ -18,9 +18,9 @@ var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');                         //add for Mongo support
 
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
-  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + chirp;
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + '/chirp';
   mongoose.connect(mongodb_connection_string);
-}else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + chirp;}
+}else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + '/chirp';}
 
 
 
