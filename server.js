@@ -8,8 +8,8 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var session = require('express-session');
-SessionStore = require('session-mongoose')(express);
+var session = require('express-session');
+//SessionStore = require('session-mongoose')(mongoose);
 var passport = require('passport');
 //initialize mongoose schemas
 require('./models/models');
@@ -37,10 +37,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-	 store: new SessionStore({
-    url: process.env.OPENSHIFT_MONGODB_DB_URL + 'session',
-    interval: 1200000
-  }),
+	 store: require('mongoose-session')(mongoose),
   cookie: { maxAge: 1200000 },
   secret: 'keyboard cat',
     proxy: true,
