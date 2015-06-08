@@ -20,12 +20,12 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');  
-//var connection;
+var connection;
 //add for Mongo support
 
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
    mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'chirp';
-   mongoose.connect(mongodb_connection_string);
+   connection = mongoose.createConnection(mongodb_connection_string);
 }else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + 'chirp';}
 
 
@@ -41,10 +41,15 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  store: new MongoStore({ mongooseConnection: connection })
 
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
