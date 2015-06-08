@@ -1,5 +1,5 @@
 var express = require('express');
-var MongoStore = require('connect-mongo')(express);
+
 //var mongoose = require('mongoose');
 
 var path = require('path');
@@ -12,7 +12,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var MongoStore = require('connect-mongo')(session);
 //SessionStore = require('session-mongoose')(mongoose);
 var passport = require('passport');
 //initialize mongoose schemas
@@ -46,7 +46,8 @@ app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat',
   store: new MongoStore({ mongooseConnection: connection })
-
+  resave: false,
+  saveUninitialized: true
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
