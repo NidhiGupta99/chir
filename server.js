@@ -43,7 +43,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(session({
 	 cookie: { maxAge: 1000*60*2 } ,
-    ssecret: 'keyboard cat',
+    secret: 'keyboard cat',
      
   
     proxy: true,
