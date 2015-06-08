@@ -1,5 +1,5 @@
 var express = require('express');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -19,11 +19,13 @@ require('./models/models');
 var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
-var mongoose = require('mongoose');                         //add for Mongo support
+var mongoose = require('mongoose');  
+var connection;
+//add for Mongo support
 
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'chirp';
-  mongoose.connect(mongodb_connection_string);
+  connection = mongoose.createConnection(mongodb_connection_string);
 }else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + 'chirp';}
 
 
@@ -40,9 +42,10 @@ app.set('view engine', 'ejs');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(session({
-	 store: new MongoStore({ url: process.env.OPENSHIFT_MONGODB_DB_URL }),
+	 cookie: { maxAge: 1000*60*2 } ,
+    ssecret: 'keyboard cat',
+     store: new MongoStore({ mongooseConnection: connection }),
   
-  secret: 'keyboard cat',
     proxy: true,
    resave: true,
     saveUninitialized: true
