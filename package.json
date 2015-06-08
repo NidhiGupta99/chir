@@ -7,18 +7,18 @@
     "start": "node ./bin/www"
   },
   
-{
-  "name": "connect-mongo",
-  "version": "0.8.1",
-  "description": "MongoDB session store for Express and Connect",
-  "keywords": [
-    "connect",
-    "mongo",
-    "mongodb",
-    "session",
-    "express"
-  ]
-},
+//{
+  //"name": "connect-mongo",
+  //"version": "0.8.1",
+//  "description": "MongoDB session store for Express and Connect",
+  //"keywords": [
+    //"connect",
+    //"mongo",
+    //"mongodb",
+    //"session",
+    //"express"
+  //]
+//},
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.8.1",
