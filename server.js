@@ -11,7 +11,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(express);
+//var MongoStore = require('connect-mongo')(express);
 //SessionStore = require('session-mongoose')(mongoose);
 var passport = require('passport');
 //initialize mongoose schemas
@@ -20,12 +20,12 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 var mongoose = require('mongoose');  
-var connection;
+//var connection;
 //add for Mongo support
 
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
-  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'chirp';
-  connection = mongoose.createConnection(mongodb_connection_string);
+   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'chirp';
+   mongoose.Connect(mongodb_connection_string);
 }else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' + 'chirp';}
 
 
@@ -44,7 +44,7 @@ app.use(logger('dev'));
 app.use(session({
 	 cookie: { maxAge: 1000*60*2 } ,
     ssecret: 'keyboard cat',
-     store: new MongoStore({ mongooseConnection: connection }),
+     
   
     proxy: true,
    resave: true,
