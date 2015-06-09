@@ -29,13 +29,13 @@ var connection;
   // mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'chirp';
    //connection = mongoose.createConnection(mongodb_connection_string);
 //}else{mongodb_connection_string = 'mongodb://127.0.0.1:27017/' +  process.env.OPENSHIFT_APP_NAME;}
-var url = '127.0.0.1:27017/' + process.env.OPENSHIFT_APP_NAME;
+var url;
 
 // if OPENSHIFT env variables are present, use the available connection info:
 if (process.env.OPENSHIFT_MONGODB_DB_URL) {
     url = process.env.OPENSHIFT_MONGODB_DB_URL +
     process.env.OPENSHIFT_APP_NAME;
-}
+}else{url = 'mongodb://127.0.0.1:27017/' +  process.env.OPENSHIFT_APP_NAME;}
 
 // Connect to mongodb
 var connect = function () {
@@ -65,7 +65,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat',
-  store: new MongoStore({ mongooseConnection: connect() }),
+  store: new MongoStore({'db': 'sessions' }),
   resave: false,
   saveUninitialized: true
 }));
