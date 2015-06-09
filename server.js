@@ -65,7 +65,7 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat',
-  store: new MongoStore({'db': 'sessions' }),
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: true
 }));
