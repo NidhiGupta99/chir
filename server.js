@@ -4,8 +4,8 @@ var http = require('http');
 
 var path = require('path');
 var favicon = require('serve-favicon');
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+//var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+//var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 
 //var nodeEnv = process.env.NODE_ENV || 'unknown';
@@ -35,8 +35,14 @@ if(process.env.OPENSHIFT_MONGODB_DB_URL){
 
               //connect to Mongo
 var app = express();
+app.set('port',  process.env.OPENSHIFT_NODEJS_PORT || 8080);
+app.set('ip',  process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1');
 var server = http.createServer(app);
 
+ var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+ 	
+ });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
